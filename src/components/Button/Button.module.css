@@ -1,0 +1,15 @@
+.button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    padding: var(--space-xs) var(--space-l);
+    border-radius: var(--space-l);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
