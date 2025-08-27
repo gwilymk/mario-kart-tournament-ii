@@ -1,5 +1,5 @@
-import { PlayerId } from "../_lib/player";
-import { Group } from "../_lib/tournament";
+import { PlayerId } from "../app/_lib/player";
+import { Group } from "../app/_lib/tournament";
 import css from "./TournamentDisplay.module.css";
 
 export default function TournamentDisplay({

@@ -2,7 +2,7 @@
 
 import { useReducer, useState } from "react";
 
-import TournamentDisplay from "./_components/TournamentDisplay";
+import TournamentDisplay from "@/components/TournamentDisplay";
 import { Tournament } from "./_lib/tournament";
 import styles from "./page.module.css";
 
