@@ -3,7 +3,7 @@
 import { useReducer, useState } from "react";
 
 import TournamentDisplay from "@/components/TournamentDisplay";
-import { Tournament } from "./_lib/tournament";
+import { Tournament } from "@/lib/tournament";
 import styles from "./page.module.css";
 
 const tournament = new Tournament();
