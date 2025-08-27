@@ -3,10 +3,10 @@
     color: var(--foreground);
 
     padding: 0;
-    margin: var(--space-s);
+    margin: var(--space-xs);
 }
 
-.icon::after {
+.iconHover::after {
     content: "";
     position: absolute;
 
@@ -25,7 +25,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .icon:hover::after {
+    .iconHover:hover::after {
         width: 150%;
         height: 150%;
 
