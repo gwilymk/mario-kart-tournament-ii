@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-xs);
+
+    padding: var(--space-s) var(--space-m);
+    border-radius: var(--space-l);
+
+    background: var(--transparent-background-color);
+    backdrop-filter: var(--transparent-backdrop-filter);
+    border: 1px solid var(--transparent-border-color);
+
+    transition: background-color 0.2s;
+}
+
+.icon > * {
+    margin: 0;
+}
+
+.input {
+    flex-grow: 1;
+    margin: 0;
+
+    border: none;
+    background: none;
+
+    color: var(--foreground);
+}
+
+.input:focus {
+    outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .container:hover {
+        background: var(--transparent-background-hover-color);
+    }
+}
