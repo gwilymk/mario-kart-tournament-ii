@@ -1,9 +1,9 @@
 import { Branded } from "./brand";
 
 export type Player = {
-  id: PlayerId;
-  name: string;
-  active: boolean;
+    id: PlayerId;
+    name: string;
+    active: boolean;
 };
 
 export type PlayerId = Branded<number, "PlayerId">;
