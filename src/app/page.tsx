@@ -25,6 +25,10 @@ export default function Home(): React.ReactNode {
             tournament.movePlayer(id, direction);
             forceUpdate();
           }}
+          updateGroupSize={(id, direction) => {
+            tournament.updateGroupSize(id, direction);
+            forceUpdate();
+          }}
         />
       </main>
     </div>

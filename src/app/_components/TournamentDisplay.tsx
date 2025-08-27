@@ -4,9 +4,11 @@ import { Group } from "../_lib/tournament";
 export default function TournamentDisplay({
   groups,
   movePlayer,
+  updateGroupSize,
 }: Readonly<{
   groups: Group[][];
   movePlayer: (id: PlayerId, direction: "up" | "down") => void;
+  updateGroupSize: (id: number, direction: "up" | "down") => void;
 }>): React.ReactNode {
   return groups.map((roundGroups, groupIndex) => (
     <TournamentRoundDisplay
@@ -15,6 +17,7 @@ export default function TournamentDisplay({
       cup={groupIndex}
       isCurrent={groups.length - 1 === groupIndex}
       movePlayer={movePlayer}
+      updateGroupSize={updateGroupSize}
     />
   ));
 }
@@ -24,11 +27,13 @@ function TournamentRoundDisplay({
   cup,
   isCurrent,
   movePlayer,
+  updateGroupSize,
 }: Readonly<{
   groups: Group[];
   cup: number;
   isCurrent: boolean;
   movePlayer: (id: PlayerId, direction: "up" | "down") => void;
+  updateGroupSize: (id: number, direction: "up" | "down") => void;
 }>): React.ReactNode {
   return (
     <div>
@@ -40,6 +45,7 @@ function TournamentRoundDisplay({
           key={groupNumber}
           isCurrent={isCurrent}
           movePlayer={movePlayer}
+          updateGroupSize={updateGroupSize}
         />
       ))}
     </div>
@@ -51,15 +57,22 @@ function GroupDisplay({
   number,
   isCurrent,
   movePlayer,
+  updateGroupSize,
 }: Readonly<{
   group: Group;
   number: number;
   isCurrent: boolean;
   movePlayer: (id: PlayerId, direction: "up" | "down") => void;
+  updateGroupSize: (id: number, direction: "up" | "down") => void;
 }>): React.ReactNode {
   return (
     <div>
       <h3>Group {number + 1}</h3>
+      {isCurrent && (
+        <UpdateGroupSize
+          onClick={(direction) => updateGroupSize(number, direction)}
+        />
+      )}
       <ol>
         {group.players.map((player, idx) => (
           <li key={idx}>
@@ -77,6 +90,19 @@ function GroupDisplay({
 }
 
 function MovePlayerButtons({
+  onClick,
+}: Readonly<{
+  onClick: (direction: "up" | "down") => void;
+}>): React.ReactNode {
+  return (
+    <div>
+      <button onClick={() => onClick("up")}>Up</button>
+      <button onClick={() => onClick("down")}>Down</button>
+    </div>
+  );
+}
+
+function UpdateGroupSize({
   onClick,
 }: Readonly<{
   onClick: (direction: "up" | "down") => void;

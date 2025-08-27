@@ -103,6 +103,38 @@ export class Tournament {
     otherPlayer[1][this.completedRounds] = oldPosition;
     playerPositions[this.completedRounds] = newPosition;
   }
+
+  public updateGroupSize(groupIndex: number, direction: "up" | "down") {
+    const currentGroupSizes = [...this.groupSizes[this.groupSizes.length - 1]];
+
+    if (direction == "up") {
+      if (
+        currentGroupSizes.length === 1 ||
+        groupIndex === currentGroupSizes.length - 1
+      ) {
+        return;
+      }
+
+      currentGroupSizes[groupIndex]++;
+      currentGroupSizes[groupIndex + 1]--;
+    } else {
+      if (currentGroupSizes[groupIndex] === 0) {
+        return;
+      }
+
+      if (groupIndex === currentGroupSizes.length - 1) {
+        currentGroupSizes.push(1);
+        currentGroupSizes[groupIndex]--;
+      } else {
+        currentGroupSizes[groupIndex]--;
+        currentGroupSizes[groupIndex + 1]++;
+      }
+    }
+
+    this.groupSizes[this.groupSizes.length - 1] = currentGroupSizes.filter(
+      (groupSize) => groupSize !== 0
+    );
+  }
 }
 
 export type Group = {
