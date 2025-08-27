@@ -9,21 +9,18 @@ export class Tournament {
   // also includes historical group sizes for rendering purposes
   private groupSizes: number[][] = [[0]];
 
-  private currentPositions: number[] = [];
-
   public addPlayer(name: string): Player {
     const playerPositions = [];
     for (let i = 0; i < this.completedRounds; i++) {
       playerPositions.push(undefined);
     }
-    playerPositions[this.completedRounds] = this.players.length - 1;
+    playerPositions[this.completedRounds] = this.players.length;
 
     const playerId = this.players.length as PlayerId;
     const player = { id: playerId, name, active: true };
     this.players.push(player);
 
     this.rounds.set(playerId, playerPositions);
-    this.currentPositions.push(this.currentPositions.length);
 
     const currentGroup = this.groupSizes[this.groupSizes.length - 1];
     currentGroup[currentGroup.length - 1] += 1;
@@ -67,6 +64,44 @@ export class Tournament {
     }
 
     return ret;
+  }
+
+  public movePlayer(playerId: PlayerId, direction: "up" | "down") {
+    const playerPositions = this.rounds.get(playerId);
+    if (playerPositions == null) {
+      return;
+    }
+
+    const oldPosition = playerPositions[this.completedRounds];
+    if (oldPosition == null) {
+      return;
+    }
+
+    let newPosition;
+    if (direction === "up") {
+      if (oldPosition === 0) {
+        return;
+      }
+
+      newPosition = oldPosition - 1;
+    } else {
+      if (oldPosition === this.players.length - 1) {
+        return;
+      }
+
+      newPosition = oldPosition + 1;
+    }
+
+    // find the player with the new position and give them the old position
+    const otherPlayer = this.rounds
+      .entries()
+      .find(([_, rounds]) => rounds[this.completedRounds] === newPosition);
+    if (otherPlayer == null) {
+      return;
+    }
+
+    otherPlayer[1][this.completedRounds] = oldPosition;
+    playerPositions[this.completedRounds] = newPosition;
   }
 }
 

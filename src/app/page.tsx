@@ -19,7 +19,13 @@ export default function Home(): React.ReactNode {
             forceUpdate();
           }}
         />
-        <TournamentDisplay groups={tournament.getGroups()} />
+        <TournamentDisplay
+          groups={tournament.getGroups()}
+          movePlayer={(id, direction) => {
+            tournament.movePlayer(id, direction);
+            forceUpdate();
+          }}
+        />
       </main>
     </div>
   );
