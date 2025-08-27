@@ -7,9 +7,10 @@ import css from "./Group.module.css";
 interface GroupProps {
     group: PlayerGroup;
     number: number;
+    showPlacement?: boolean;
 }
 
-export const Group: FC<GroupProps> = ({ group, number }) => {
+export const Group: FC<GroupProps> = ({ group, number, showPlacement }) => {
     const groupIndex = (number % 5) + 1;
 
     return (
@@ -23,7 +24,7 @@ export const Group: FC<GroupProps> = ({ group, number }) => {
             <h2 className={css.title}>Group {number + 1}</h2>
             <ol className={css.players}>
                 {group.players.map((player) => (
-                    <GroupPlayer player={player} key={player.id} />
+                    <GroupPlayer player={player} key={player.id} showPlacement={showPlacement} />
                 ))}
             </ol>
         </div>
