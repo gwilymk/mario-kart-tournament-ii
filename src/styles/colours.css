@@ -14,4 +14,15 @@
     --transparent-border-color: rgba(30, 30, 30, 1);
     --transparent-border-color-light: rgba(180, 180, 180, 0.2);
     --transparent-backdrop-filter: blur(8px);
+
+    --group-1-color: rgba(137, 48, 51, 0.4);
+    --group-1-color-light: rgba(149, 69, 71, 0.4);
+    --group-2-color: rgba(137, 109, 31, 0.4);
+    --group-2-color-light: rgba(149, 124, 53, 0.4);
+    --group-3-color: rgba(74, 109, 20, 0.4);
+    --group-3-color-light: rgba(92, 124, 43, 0.4);
+    --group-4-color: rgba(13, 70, 106, 0.4);
+    --group-4-color-light: rgba(37, 88, 121, 0.4);
+    --group-5-color: rgba(57, 41, 79, 0.4);
+    --group-5-color-light: rgba(77, 62, 97, 0.4);
 }
