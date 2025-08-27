@@ -1,0 +1,27 @@
+.player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--space-xs) var(--space-m) var(--space-xs) var(--space-l);
+    border-radius: var(--space-l);
+
+    background: var(--transparent-background-color-light);
+    border: 1px solid var(--transparent-border-color-light);
+    backdrop-filter: var(--transparent-backdrop-filter);
+
+    text-shadow:
+        1px 1px 0 var(--transparent-background-color),
+        2px 2px 0 var(--transparent-background-color);
+
+    box-shadow:
+        1px 1px 2px var(--transparent-background-color-light),
+        -1px 1px 2px var(--transparent-background-color-light);
+
+    text-overflow: ellipsis;
+}
+
+.player:not(:first-child) {
+    margin-top: var(--space-xs);
+}
