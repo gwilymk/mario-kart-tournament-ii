@@ -22,12 +22,20 @@ export const useLocalStorageState = <T>(key: string, initialValue: T) => {
 
 export const useLocalStorageImmer = <T>(key: string, initialValue: T) => {
     const [value, setValue] = useImmer<T>(initialValue);
+    // A hack to prevent maximum recursion depth when reading from storage
+    const [storedKey, setStoredKey] = useState<string | undefined>(undefined);
 
     // Handle loading the initial value
     useEffect(() => {
+        if (storedKey === key) {
+            return;
+        }
+
         const stored = _localStorage?.getItem(key);
+
         setValue(stored ? JSON.parse(stored) : initialValue);
-    }, [key, initialValue, setValue]);
+        setStoredKey(key);
+    }, [key, initialValue, setValue, storedKey]);
 
     // Handle when the value changes
     useEffect(() => {
