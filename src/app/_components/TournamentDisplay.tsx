@@ -1,25 +1,37 @@
 import { PlayerId } from "../_lib/player";
 import { Group } from "../_lib/tournament";
 
+import css from "./TournamentDisplay.module.css";
+
 export default function TournamentDisplay({
   groups,
   movePlayer,
   updateGroupSize,
+  completeRound,
 }: Readonly<{
   groups: Group[][];
   movePlayer: (id: PlayerId, direction: "up" | "down") => void;
   updateGroupSize: (id: number, direction: "up" | "down") => void;
+  completeRound: () => void;
 }>): React.ReactNode {
-  return groups.map((roundGroups, groupIndex) => (
-    <TournamentRoundDisplay
-      groups={roundGroups}
-      key={groupIndex}
-      cup={groupIndex}
-      isCurrent={groups.length - 1 === groupIndex}
-      movePlayer={movePlayer}
-      updateGroupSize={updateGroupSize}
-    />
-  ));
+  return (
+    <div>
+      <div className={css.groups}>
+        {groups.map((roundGroups, groupIndex) => (
+          <TournamentRoundDisplay
+            groups={roundGroups}
+            key={groupIndex}
+            cup={groupIndex}
+            isCurrent={groups.length - 1 === groupIndex}
+            movePlayer={movePlayer}
+            updateGroupSize={updateGroupSize}
+          />
+        ))}
+      </div>
+
+      <button onClick={() => completeRound()}>Complete round</button>
+    </div>
+  );
 }
 
 function TournamentRoundDisplay({
@@ -67,16 +79,22 @@ function GroupDisplay({
 }>): React.ReactNode {
   return (
     <div>
-      <h3>Group {number + 1}</h3>
-      {isCurrent && (
-        <UpdateGroupSize
-          onClick={(direction) => updateGroupSize(number, direction)}
-        />
-      )}
-      <ol>
+      <div className={css.groupHeader}>
+        <h3>Group {number + 1}</h3>{" "}
+        {isCurrent && (
+          <UpdateGroupSize
+            onClick={(direction) => updateGroupSize(number, direction)}
+          />
+        )}
+      </div>
+
+      <ol className={css.player}>
         {group.players.map((player, idx) => (
           <li key={idx}>
-            <span>{player.name}</span>
+            <div className={css.playerAndPosition}>
+              <span>{idx + 1}</span>
+              <span>{player.name}</span>
+            </div>
             {isCurrent && (
               <MovePlayerButtons
                 onClick={(direction) => movePlayer(player.id, direction)}

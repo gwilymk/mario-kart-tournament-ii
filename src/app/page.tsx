@@ -29,6 +29,10 @@ export default function Home(): React.ReactNode {
             tournament.updateGroupSize(id, direction);
             forceUpdate();
           }}
+          completeRound={() => {
+            tournament.completeRound();
+            forceUpdate();
+          }}
         />
       </main>
     </div>

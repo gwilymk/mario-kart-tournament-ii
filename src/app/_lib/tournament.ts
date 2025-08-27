@@ -135,6 +135,48 @@ export class Tournament {
       (groupSize) => groupSize !== 0
     );
   }
+
+  public completeRound() {
+    // for each group, promote the top 2 and demote the bottom 2
+    const thisRoundGroupSizes = this.groupSizes[this.groupSizes.length - 1];
+    this.groupSizes.push([...thisRoundGroupSizes]);
+
+    const adjustments: number[] = [];
+
+    let groupIndex = 0;
+    for (const groupSize of thisRoundGroupSizes) {
+      const isFirst = groupIndex == 0;
+      const isLast = groupIndex == thisRoundGroupSizes.length - 1;
+
+      const promotionAmount = isFirst ? 0 : groupSize >= 4 ? 2 : isLast ? 2 : 1;
+      const demotionAmount = isLast ? 0 : groupSize >= 4 ? 2 : isFirst ? 2 : 1;
+
+      for (let i = 0; i < promotionAmount; i++) {
+        adjustments.push(-promotionAmount);
+      }
+
+      for (let i = 0; i < groupSize - promotionAmount - demotionAmount; i++) {
+        adjustments.push(0);
+      }
+
+      for (let i = 0; i < demotionAmount; i++) {
+        adjustments.push(demotionAmount);
+      }
+
+      groupIndex += 1;
+    }
+
+    this.rounds.entries().forEach(([_, positions]) => {
+      let currentPosition = positions[positions.length - 1];
+      if (currentPosition == null) {
+        return;
+      }
+
+      positions.push(currentPosition + adjustments[currentPosition]);
+    });
+
+    this.completedRounds++;
+  }
 }
 
 export type Group = {
