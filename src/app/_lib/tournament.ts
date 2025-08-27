@@ -7,7 +7,7 @@ export class Tournament {
   private players: Player[] = [];
 
   // also includes historical group sizes for rendering purposes
-  private groupSizes: number[][] = [];
+  private groupSizes: number[][] = [[0]];
 
   private currentPositions: number[] = [];
 
@@ -16,6 +16,7 @@ export class Tournament {
     for (let i = 0; i < this.completedRounds; i++) {
       playerPositions.push(undefined);
     }
+    playerPositions[this.completedRounds] = this.players.length - 1;
 
     const playerId = this.players.length as PlayerId;
     const player = { id: playerId, name, active: true };
@@ -23,6 +24,9 @@ export class Tournament {
 
     this.rounds.set(playerId, playerPositions);
     this.currentPositions.push(this.currentPositions.length);
+
+    const currentGroup = this.groupSizes[this.groupSizes.length - 1];
+    currentGroup[currentGroup.length - 1] += 1;
 
     return player;
   }
@@ -45,7 +49,7 @@ export class Tournament {
       playersAndPositions.sort(
         ({ position: position1 }, { position: position2 }) =>
           // can't be undefined because of the filter above
-          position2! - position1!
+          position1! - position2!
       );
 
       const thisGroup = [];
@@ -66,6 +70,6 @@ export class Tournament {
   }
 }
 
-type Group = {
+export type Group = {
   players: Player[];
 };
