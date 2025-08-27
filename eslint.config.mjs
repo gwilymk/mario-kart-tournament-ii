@@ -30,6 +30,7 @@ export default [
             "react/no-unused-prop-types": "off",
             "react/require-default-props": "off",
             "react/no-unescaped-entities": "off",
+            "react/display-name": "off",
             "import/extensions": [
                 "error",
                 "ignorePackages",
