@@ -1,0 +1,16 @@
+.collection {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-evenly;
+
+    gap: var(--space-m);
+
+    padding: var(--space-m);
+}
+
+.collection > * {
+    flex-grow: 1;
+    width: 300px;
+    max-width: 300px;
+}
