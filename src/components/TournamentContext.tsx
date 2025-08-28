@@ -29,7 +29,7 @@ export const useTournament = () => useContext(TournamentContext);
 export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
     const [rounds, setRounds] = useLocalStorageImmer<Map<PlayerId, (number | undefined)[]>>("rounds", new Map());
     const [completedRounds, setCompletedRounds] = useLocalStorageState("completedRounds", 0);
-    const [players, setPlayers] = useLocalStorageImmer<Player[]>("players", []);
+    const [players, setPlayers] = useLocalStorageImmer<Map<PlayerId, Player>>("players", new Map());
     // also includes historical group sizes for rendering purposes
     const [groupSizes, setGroupSizes] = useLocalStorageImmer("groupSizes", [[0]]);
 
@@ -41,13 +41,13 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 playerPositions.push(undefined);
             }
 
-            playerPositions[completedRounds] = players.length;
+            playerPositions[completedRounds] = players.size;
 
-            const playerId = players.length as PlayerId;
+            const playerId = crypto.randomUUID() as PlayerId;
             const player = { id: playerId, name, active: true };
 
             setPlayers((currentValue) => {
-                currentValue.push(player);
+                currentValue.set(playerId, player);
             });
 
             setRounds((currentValue) => {
@@ -67,7 +67,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
             return player;
         },
-        [completedRounds, players.length, setGroupSizes, setPlayers, setRounds]
+        [completedRounds, players.size, setGroupSizes, setPlayers, setRounds]
     );
 
     const getGroups = useCallback(() => {
@@ -79,7 +79,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 rounds
                     .entries()
                     .map(([playerId, maybePosition]) => ({
-                        playerId: Number(playerId) as PlayerId,
+                        playerId,
                         position: maybePosition[roundNumber],
                     }))
                     .filter(({ position }) => position != null)
@@ -91,10 +91,13 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                     position1! - position2!
             );
 
-            const thisGroup = [];
+            const thisGroup: Group[] = [];
             for (const roundGroupSize of roundGroupSizes) {
                 thisGroup.push({
-                    players: playersAndPositions.splice(0, roundGroupSize).map(({ playerId }) => players[playerId]),
+                    players: playersAndPositions
+                        .splice(0, roundGroupSize)
+                        .map(({ playerId }) => players.get(playerId))
+                        .filter((x) => x !== undefined),
                 });
             }
 
@@ -128,7 +131,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
                     newPosition = oldPosition - 1;
                 } else {
-                    if (oldPosition === players.length - 1) {
+                    if (oldPosition === players.size - 1) {
                         return;
                     }
 
@@ -146,7 +149,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 playerPositions[completedRounds] = newPosition;
             });
         },
-        [completedRounds, players.length, setRounds]
+        [completedRounds, players.size, setRounds]
     );
 
     const updateGroupSize = useCallback(

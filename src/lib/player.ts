@@ -6,4 +6,4 @@ export type Player = {
     active: boolean;
 };
 
-export type PlayerId = Branded<number, "PlayerId">;
+export type PlayerId = Branded<string, "PlayerId">;
