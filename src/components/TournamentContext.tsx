@@ -22,6 +22,8 @@ const TournamentContext = createContext<Tournament>({
     completeRound: undefined!,
 });
 
+const MAXIMUM_GROUP_SIZE = 8;
+
 export const useTournament = () => useContext(TournamentContext);
 
 export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -53,14 +55,19 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             });
 
             setGroupSizes((currentValue) => {
-                const currentGroup = currentValue[groupSizes.length - 1];
+                const currentGroupSizes = currentValue[currentValue.length - 1];
+                const currentGroupSize = currentGroupSizes[currentGroupSizes.length - 1];
 
-                currentGroup[groupSizes.length - 1] += 1;
+                if (currentGroupSize === MAXIMUM_GROUP_SIZE) {
+                    currentGroupSizes.push(1);
+                } else {
+                    currentGroupSizes[currentGroupSizes.length - 1]++;
+                }
             });
 
             return player;
         },
-        [completedRounds, groupSizes.length, players.length, setGroupSizes, setPlayers, setRounds]
+        [completedRounds, players.length, setGroupSizes, setPlayers, setRounds]
     );
 
     const getGroups = useCallback(() => {
