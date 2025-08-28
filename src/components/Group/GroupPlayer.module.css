@@ -6,6 +6,7 @@
 
     padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-s);
     border-radius: var(--space-l);
+    gap: var(--space-xxs);
 
     background: var(--transparent-background-color-light);
     border: 1px solid var(--transparent-border-color-light);

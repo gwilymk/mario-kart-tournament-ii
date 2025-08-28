@@ -176,7 +176,9 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 }
 
                 // find the player with the new position and give them the old position
-                const otherPlayer = rounds.entries().find(([_, rounds]) => rounds[completedRounds] === newPosition);
+                const otherPlayer = Array.from(rounds.entries()).find(
+                    ([_, rounds]) => rounds[completedRounds] === newPosition
+                );
 
                 if (otherPlayer == null) {
                     return;
