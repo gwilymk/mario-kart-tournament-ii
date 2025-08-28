@@ -8,6 +8,7 @@ import { Group } from "@/lib/tournament";
 
 interface Tournament {
     addPlayer: (name: string) => Player;
+    removePlayer: (playerId: PlayerId) => void;
     getGroups: () => Group[][];
     movePlayer: (playerId: PlayerId, direction: "up" | "down") => void;
     updateGroupSize: (groupIndex: number, direction: "up" | "down") => void;
@@ -16,6 +17,7 @@ interface Tournament {
 
 const TournamentContext = createContext<Tournament>({
     addPlayer: undefined!,
+    removePlayer: undefined!,
     getGroups: undefined!,
     movePlayer: undefined!,
     updateGroupSize: undefined!,
@@ -68,6 +70,39 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             return player;
         },
         [completedRounds, players.size, setGroupSizes, setPlayers, setRounds]
+    );
+
+    const removePlayer = useCallback(
+        (playerId: PlayerId) => {
+            const playerPositions = rounds.get(playerId);
+            if (playerPositions === undefined) {
+                return;
+            }
+
+            // If we haven't started yet, delete the player
+            if (playerPositions.length === 1) {
+                setRounds((currentValue) => {
+                    currentValue.delete(playerId);
+                });
+                setPlayers((currentValue) => {
+                    currentValue.delete(playerId);
+                });
+            } else {
+                setPlayers((currentValue) => {
+                    const player = currentValue.get(playerId);
+                    if (player) {
+                        player.active = false;
+                    }
+                });
+            }
+            setGroupSizes((currentValue) => {
+                const currentGroupSizes = [...currentValue[currentValue.length - 1]];
+                currentGroupSizes[currentGroupSizes.length - 1]--;
+
+                currentValue[currentValue.length - 1] = currentGroupSizes.filter((groupSize) => groupSize > 0);
+            });
+        },
+        [rounds, setGroupSizes, setPlayers, setRounds]
     );
 
     const getGroups = useCallback(() => {
@@ -215,7 +250,13 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         }
 
         setRounds((currentValue) =>
-            Object.entries(currentValue).forEach(([_, positions]) => {
+            currentValue.entries().forEach(([playerId, positions]) => {
+                const player = players.get(playerId);
+
+                if (!player || !player.active) {
+                    return;
+                }
+
                 const currentPosition = positions[positions.length - 1];
                 if (currentPosition == null) {
                     return;
@@ -231,12 +272,13 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
     const value = useMemo(
         () => ({
             addPlayer,
+            removePlayer,
             getGroups,
             movePlayer,
             updateGroupSize,
             completeRound,
         }),
-        [addPlayer, completeRound, getGroups, movePlayer, updateGroupSize]
+        [addPlayer, completeRound, getGroups, movePlayer, removePlayer, updateGroupSize]
     );
 
     return <TournamentContext.Provider value={value}>{children}</TournamentContext.Provider>;
