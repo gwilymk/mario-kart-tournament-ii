@@ -1,11 +1,11 @@
 "use client";
 
-import { ChangeEvent, forwardRef, HTMLProps, ReactNode, useCallback } from "react";
+import { ChangeEvent, ComponentProps, forwardRef, ReactNode, useCallback } from "react";
 import classNames from "classnames";
 
 import css from "./Input.module.css";
 
-interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onChange"> {
+interface InputProps extends Omit<ComponentProps<"input">, "onChange"> {
     onChange?: (value: string) => void;
 
     leftIcon?: ReactNode;
