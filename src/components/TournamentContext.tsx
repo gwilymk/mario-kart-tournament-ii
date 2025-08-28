@@ -25,7 +25,7 @@ const TournamentContext = createContext<Tournament>({
 export const useTournament = () => useContext(TournamentContext);
 
 export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
-    const [rounds, setRounds] = useLocalStorageImmer<Record<PlayerId, (number | undefined)[]>>("rounds", {});
+    const [rounds, setRounds] = useLocalStorageImmer<Map<PlayerId, (number | undefined)[]>>("rounds", new Map());
     const [completedRounds, setCompletedRounds] = useLocalStorageState("completedRounds", 0);
     const [players, setPlayers] = useLocalStorageImmer<Player[]>("players", []);
     // also includes historical group sizes for rendering purposes
@@ -49,7 +49,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             });
 
             setRounds((currentValue) => {
-                currentValue[playerId] = playerPositions;
+                currentValue.set(playerId, playerPositions);
             });
 
             setGroupSizes((currentValue) => {
@@ -69,7 +69,8 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         let roundNumber = 0;
         for (const roundGroupSizes of groupSizes) {
             const playersAndPositions = Array.from(
-                Object.entries(rounds)
+                rounds
+                    .entries()
                     .map(([playerId, maybePosition]) => ({
                         playerId: Number(playerId) as PlayerId,
                         position: maybePosition[roundNumber],
@@ -101,7 +102,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
     const movePlayer = useCallback(
         (playerId: PlayerId, direction: "up" | "down") => {
             setRounds((rounds) => {
-                const playerPositions = rounds[playerId];
+                const playerPositions = rounds.get(playerId);
 
                 if (playerPositions == null) {
                     return;
@@ -128,9 +129,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 }
 
                 // find the player with the new position and give them the old position
-                const otherPlayer = Object.entries(rounds).find(
-                    ([_, rounds]) => rounds[completedRounds] === newPosition
-                );
+                const otherPlayer = rounds.entries().find(([_, rounds]) => rounds[completedRounds] === newPosition);
 
                 if (otherPlayer == null) {
                     return;
