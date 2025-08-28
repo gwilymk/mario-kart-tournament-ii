@@ -201,6 +201,11 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                         return;
                     }
 
+                    const currentGroupSize = currentGroupSizes[groupIndex];
+                    if (currentGroupSize === MAXIMUM_GROUP_SIZE) {
+                        return;
+                    }
+
                     currentGroupSizes[groupIndex]++;
                     currentGroupSizes[groupIndex + 1]--;
                 } else {
