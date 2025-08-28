@@ -99,7 +99,9 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 const currentGroupSizes = [...currentValue[currentValue.length - 1]];
                 currentGroupSizes[currentGroupSizes.length - 1]--;
 
-                currentValue[currentValue.length - 1] = currentGroupSizes.filter((groupSize) => groupSize > 0);
+                const newSizes = currentGroupSizes.filter((groupSize) => groupSize > 0);
+
+                currentValue[currentValue.length - 1] = newSizes.length > 0 ? newSizes : [0];
             });
         },
         [rounds, setGroupSizes, setPlayers, setRounds]
@@ -267,7 +269,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         );
 
         setCompletedRounds((currentValue) => currentValue++);
-    }, [groupSizes, setCompletedRounds, setGroupSizes, setRounds]);
+    }, [groupSizes, players, setCompletedRounds, setGroupSizes, setRounds]);
 
     const value = useMemo(
         () => ({
