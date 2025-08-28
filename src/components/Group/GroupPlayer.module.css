@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: var(--space-xs) var(--space-m);
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-s);
     border-radius: var(--space-l);
 
     background: var(--transparent-background-color-light);
@@ -33,7 +33,7 @@
 }
 
 .player.placement {
-    padding: var(--space-xs) var(--space-m) var(--space-xs) var(--space-l);
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-l);
 }
 
 .player:nth-child(1).placement {
@@ -66,4 +66,36 @@
 
 .player:nth-child(8).placement {
     background-image: url("/images/placement/placement-8.webp");
+}
+
+.player .name {
+    flex-grow: 1;
+}
+
+.icon {
+    margin: 0;
+    opacity: 0;
+
+    transform: scale(0.9);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.icon > svg {
+    filter: drop-shadow(2px 2px 0 var(--transparent-background-color));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .player:hover .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media not ((hover: hover) and (pointer: fine)) {
+    .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
