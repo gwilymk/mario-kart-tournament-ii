@@ -25,6 +25,7 @@ const TournamentContext = createContext<Tournament>({
 });
 
 export const MAXIMUM_GROUP_SIZE = 8;
+export const MINIMUM_GROUP_SIZE = 3;
 
 export const useTournament = () => useContext(TournamentContext);
 
@@ -210,6 +211,11 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                     currentGroupSizes[groupIndex + 1]--;
                 } else {
                     if (currentGroupSizes[groupIndex] === 0) {
+                        return;
+                    }
+
+                    const currentGroupSize = currentGroupSizes[groupIndex];
+                    if (currentGroupSize === MINIMUM_GROUP_SIZE) {
                         return;
                     }
 

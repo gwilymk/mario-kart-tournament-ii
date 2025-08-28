@@ -4,7 +4,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 import { IconButton } from "@/components/Button";
 import { GroupPlayer } from "@/components/Group/GroupPlayer";
-import { MAXIMUM_GROUP_SIZE, useTournament } from "@/components/TournamentContext";
+import { MAXIMUM_GROUP_SIZE, MINIMUM_GROUP_SIZE, useTournament } from "@/components/TournamentContext";
 import { Group as PlayerGroup } from "@/lib/tournament";
 import css from "./Group.module.css";
 
@@ -28,7 +28,12 @@ export const Group: FC<GroupProps> = ({ group, number, showPlacement }) => {
             }}
         >
             <div className={css.header}>
-                <IconButton type="button" onClick={() => updateGroupSize(number, "down")} className={css.icon}>
+                <IconButton
+                    type="button"
+                    onClick={() => updateGroupSize(number, "down")}
+                    className={css.icon}
+                    disabled={group.players.length <= MINIMUM_GROUP_SIZE}
+                >
                     <RemoveCircleOutlineIcon />
                 </IconButton>
                 <h2 className={css.title}>Group {number + 1}</h2>
