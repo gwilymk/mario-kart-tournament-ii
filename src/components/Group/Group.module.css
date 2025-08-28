@@ -29,6 +29,7 @@
     flex-grow: 1;
 
     text-align: center;
+    user-select: none;
 
     text-shadow:
         1px 1px 0 var(--transparent-background-color),

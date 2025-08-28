@@ -71,6 +71,7 @@
 
 .player .name {
     flex-grow: 1;
+    user-select: none;
 }
 
 .icon {
