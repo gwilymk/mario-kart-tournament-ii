@@ -4,7 +4,7 @@ export class Tournament {
     private rounds: Map<PlayerId, (number | undefined)[]> = new Map();
     private completedRounds: number = 0;
 
-    private players: Player[] = [];
+    private players: Map<PlayerId, Player> = new Map();
 
     // also includes historical group sizes for rendering purposes
     private groupSizes: number[][] = [[0]];
@@ -14,11 +14,11 @@ export class Tournament {
         for (let i = 0; i < this.completedRounds; i++) {
             playerPositions.push(undefined);
         }
-        playerPositions[this.completedRounds] = this.players.length;
+        playerPositions[this.completedRounds] = this.players.size;
 
-        const playerId = this.players.length as PlayerId;
+        const playerId = crypto.randomUUID() as PlayerId;
         const player = { id: playerId, name, active: true };
-        this.players.push(player);
+        this.players.set(playerId, player);
 
         this.rounds.set(playerId, playerPositions);
 
@@ -54,7 +54,8 @@ export class Tournament {
                 thisGroup.push({
                     players: playersAndPositions
                         .splice(0, roundGroupSize)
-                        .map(({ playerId }) => this.players[playerId]),
+                        .map(({ playerId }) => this.players.get(playerId))
+                        .filter((x) => x !== undefined),
                 });
             }
 
@@ -85,7 +86,7 @@ export class Tournament {
 
             newPosition = oldPosition - 1;
         } else {
-            if (oldPosition === this.players.length - 1) {
+            if (oldPosition === this.players.size - 1) {
                 return;
             }
 
