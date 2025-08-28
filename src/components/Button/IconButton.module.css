@@ -6,6 +6,10 @@
     margin: var(--space-xs);
 }
 
+.icon:disabled {
+    color: var(--disabled);
+}
+
 .iconHover::after {
     content: "";
     position: absolute;

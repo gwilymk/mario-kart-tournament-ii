@@ -24,7 +24,7 @@ const TournamentContext = createContext<Tournament>({
     completeRound: undefined!,
 });
 
-const MAXIMUM_GROUP_SIZE = 8;
+export const MAXIMUM_GROUP_SIZE = 8;
 
 export const useTournament = () => useContext(TournamentContext);
 
