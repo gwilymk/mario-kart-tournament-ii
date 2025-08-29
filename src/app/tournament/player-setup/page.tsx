@@ -19,8 +19,8 @@ export default function AddPlayers() {
         <>
             <h1>Player Setup</h1>
             <PlayerNameInput onSubmit={addPlayer} />
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
             {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
+            <div className="footer">
                 <PrimaryButton onClick={completeRound}>Start Tournament</PrimaryButton>
             </div>
         </>
