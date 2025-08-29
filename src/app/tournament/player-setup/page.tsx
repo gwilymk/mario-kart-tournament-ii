@@ -22,7 +22,9 @@ export default function AddPlayers() {
         <>
             <h1>Player Setup</h1>
             <PlayerNameInput onSubmit={addPlayer} />
-            {currentGroups.length > 0 && <GroupCollection groups={currentGroups} />}
+            {currentGroups.length > 0 && currentGroups[0].players.length > 0 && (
+                <GroupCollection groups={currentGroups} />
+            )}
             <div className="footer">
                 <PrimaryButton onClick={() => router.push(`/tournament/cup/${firstCup}`)}>
                     Start Tournament
