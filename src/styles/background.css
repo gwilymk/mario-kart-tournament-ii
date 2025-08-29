@@ -11,6 +11,6 @@
 body {
     background-image: url("/images/background.webp");
     background-repeat: repeat;
-    animation: background 30s linear infinite;
+    animation: background 60s linear infinite;
     will-change: background-position;
 }
