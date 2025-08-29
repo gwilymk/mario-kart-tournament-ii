@@ -242,7 +242,9 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
     const completeRound = useCallback(() => {
         // for each group, promote the top 2 and demote the bottom 2
         const thisRoundGroupSizes = groupSizes[groupSizes.length - 1];
-        setGroupSizes((currentValue) => currentValue.push([...thisRoundGroupSizes]));
+        setGroupSizes((currentValue) => {
+            currentValue.push([...thisRoundGroupSizes]);
+        });
 
         const adjustments: number[] = [];
 
@@ -269,8 +271,8 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             groupIndex += 1;
         }
 
-        setRounds((currentValue) =>
-            currentValue.entries().forEach(([playerId, positions]) => {
+        setRounds((currentValue) => {
+            for (const [playerId, positions] of currentValue.entries()) {
                 const player = players.get(playerId);
 
                 if (!player || !player.active) {
@@ -283,10 +285,12 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 }
 
                 positions.push(currentPosition + adjustments[currentPosition]);
-            })
-        );
+            }
+        });
 
-        setCompletedRounds((currentValue) => currentValue++);
+        setCompletedRounds((currentValue) => {
+            return currentValue++;
+        });
     }, [groupSizes, players, setCompletedRounds, setGroupSizes, setRounds]);
 
     const value = useMemo(
