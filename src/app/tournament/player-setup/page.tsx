@@ -10,14 +10,17 @@ import { useTournament } from "@/components/TournamentContext";
 export default function AddPlayers() {
     const { addPlayer, getGroups, completeRound } = useTournament();
 
-    const groups = useMemo(getGroups, [getGroups]);
+    const currentGroups = useMemo(() => {
+        const groups = getGroups();
+        return groups[groups.length - 1];
+    }, [getGroups]);
 
     return (
         <>
             <h1>Player Setup</h1>
             <PlayerNameInput onSubmit={addPlayer} />
-            <GroupCollection groups={groups[groups.length - 1]} showPlacement={true} />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
+            {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
                 <PrimaryButton onClick={completeRound}>Start Tournament</PrimaryButton>
             </div>
         </>
