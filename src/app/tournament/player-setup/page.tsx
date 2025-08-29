@@ -19,7 +19,7 @@ export default function AddPlayers() {
         <>
             <h1>Player Setup</h1>
             <PlayerNameInput onSubmit={addPlayer} />
-            {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
+            {currentGroups.length > 0 && <GroupCollection groups={currentGroups} />}
             <div className="footer">
                 <PrimaryButton onClick={completeRound}>Start Tournament</PrimaryButton>
             </div>
