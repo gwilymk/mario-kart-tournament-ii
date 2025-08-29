@@ -13,6 +13,7 @@ interface Tournament {
     movePlayer: (playerId: PlayerId, direction: "up" | "down") => void;
     updateGroupSize: (groupIndex: number, direction: "up" | "down") => void;
     completeRound: () => void;
+    canStart: boolean;
 }
 
 const TournamentContext = createContext<Tournament>({
@@ -22,6 +23,7 @@ const TournamentContext = createContext<Tournament>({
     movePlayer: undefined!,
     updateGroupSize: undefined!,
     completeRound: undefined!,
+    canStart: undefined!,
 });
 
 export const MAXIMUM_GROUP_SIZE = 8;
@@ -293,6 +295,8 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         });
     }, [groupSizes, players, setCompletedRounds, setGroupSizes, setRounds]);
 
+    const canStart = useMemo(() => players.values().some((x) => x.active), [players]);
+
     const value = useMemo(
         () => ({
             addPlayer,
@@ -301,6 +305,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             movePlayer,
             updateGroupSize,
             completeRound,
+            canStart,
         }),
         [addPlayer, completeRound, getGroups, movePlayer, removePlayer, updateGroupSize]
     );

@@ -10,7 +10,7 @@ import { useTournament } from "@/components/TournamentContext";
 import { firstCup } from "@/lib/cups";
 
 export default function AddPlayers() {
-    const { addPlayer, getGroups } = useTournament();
+    const { addPlayer, getGroups, canStart } = useTournament();
     const router = useRouter();
 
     const currentGroups = useMemo(() => {
@@ -26,7 +26,7 @@ export default function AddPlayers() {
                 <GroupCollection groups={currentGroups} />
             )}
             <div className="footer">
-                <PrimaryButton onClick={() => router.push(`/tournament/cup/${firstCup}`)}>
+                <PrimaryButton onClick={() => router.replace(`/tournament/cup/${firstCup}`)} disabled={!canStart}>
                     Start Tournament
                 </PrimaryButton>
             </div>
