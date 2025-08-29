@@ -1,0 +1,10 @@
+.title {
+    display: flex;
+    position: relative;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--space-s);
+}
