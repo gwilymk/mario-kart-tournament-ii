@@ -25,9 +25,9 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
         completeRound();
 
         if (isLastCup(name)) {
-            router.push("/tournament/summary");
+            router.replace("/tournament/summary");
         } else {
-            router.push(`/tournament/cup/${getNextCup(name)}`);
+            router.replace(`/tournament/cup/${getNextCup(name)}`);
         }
     }, [completeRound, name, router]);
 
