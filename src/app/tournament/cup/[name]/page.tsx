@@ -43,7 +43,9 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
             </div>
             {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
             <div className="footer">
-                <PrimaryButton onClick={nextRound}>Next round</PrimaryButton>
+                <PrimaryButton onClick={nextRound}>
+                    {isLastCup(name) ? "Finish tournament" : "Next round"}
+                </PrimaryButton>
             </div>
         </>
     );
