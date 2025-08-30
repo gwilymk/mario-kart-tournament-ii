@@ -172,7 +172,3 @@ export class Tournament {
         this.completedRounds++;
     }
 }
-
-export type Group = {
-    players: Player[];
-};

@@ -3,8 +3,7 @@
 import { createContext, FC, PropsWithChildren, useCallback, useContext, useMemo } from "react";
 
 import { useLocalStorageImmer, useLocalStorageState } from "@/lib/hooks/useLocalStorage";
-import { Player, PlayerId } from "@/lib/player";
-import { Group } from "@/lib/tournament";
+import { Player, PlayerGroup, PlayerId } from "@/lib/player";
 
 const isDefined = <T,>(x: T | undefined | null): x is T => x !== undefined && x !== null;
 
@@ -12,7 +11,7 @@ interface Tournament {
     hasLoaded: boolean;
     addPlayer: (name: string) => Player;
     removePlayer: (playerId: PlayerId) => void;
-    getGroups: () => Group[][];
+    getGroups: () => PlayerGroup[][];
     movePlayer: (playerId: PlayerId, direction: "up" | "down") => void;
     updateGroupSize: (groupIndex: number, direction: "up" | "down") => void;
     completeRound: () => void;
@@ -149,7 +148,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                     position1! - position2!
             );
 
-            const thisGroup: Group[] = [];
+            const thisGroup: PlayerGroup[] = [];
             for (const roundGroupSize of roundGroupSizes) {
                 thisGroup.push({
                     players: playersAndPositions

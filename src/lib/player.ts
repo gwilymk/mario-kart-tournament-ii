@@ -7,3 +7,7 @@ export type Player = {
 };
 
 export type PlayerId = Branded<string, "PlayerId">;
+
+export type PlayerGroup = {
+    players: Player[];
+};

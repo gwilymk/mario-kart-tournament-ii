@@ -5,7 +5,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { IconButton } from "@/components/Button";
 import { GroupPlayer } from "@/components/GroupPlayer";
 import { MAXIMUM_GROUP_SIZE, MINIMUM_GROUP_SIZE, useTournament } from "@/components/TournamentContext";
-import { Group as PlayerGroup } from "@/lib/tournament";
+import { PlayerGroup } from "@/lib/player";
 import css from "./Group.module.css";
 
 interface GroupProps {

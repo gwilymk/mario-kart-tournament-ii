@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Group } from "@/components/Group/Group";
-import { Group as PlayerGroup } from "@/lib/tournament";
+import { PlayerGroup } from "@/lib/player";
 import css from "./GroupCollection.module.css";
 
 interface GroupCollectionProps {
