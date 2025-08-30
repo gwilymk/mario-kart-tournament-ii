@@ -1,1 +1,1 @@
-export const imagePrefix = process.env.PAGES_BASE_PATH || "";
+export const imagePrefix = process.env.NEXT_PAGES_BASE_PATH || "";
