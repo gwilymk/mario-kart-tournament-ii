@@ -5,6 +5,7 @@ import { notFound, useRouter } from "next/navigation";
 
 import AddPlayerModal from "@/components/AddPlayerModal";
 import { PrimaryButton, SecondaryButton } from "@/components/Button";
+import CupIcon from "@/components/CupIcon";
 import { GroupCollection } from "@/components/Group";
 import { useTournament } from "@/components/TournamentContext";
 import { cupForIndex, getNextCup, indexOfCup, isCup, isLastCup } from "@/lib/cups";
@@ -48,7 +49,7 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
     return (
         <>
             <div className={css.title}>
-                <img src={`/images/cups/${name}.webp`} alt={`${name} cup`} className={css.image} />
+                <CupIcon cup={name} />
                 <h1>Cup</h1>
             </div>
             {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
