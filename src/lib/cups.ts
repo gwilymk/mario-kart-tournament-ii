@@ -14,4 +14,8 @@ export const getNextCup = (cup: Cup): NextCup => {
 
 export const isLastCup = (cup: Cup) => cup === cups[cups.length - 1];
 
+export const indexOfCup = (cup: Cup) => cups.indexOf(cup);
+
+export const cupForIndex = (index: number): Cup | undefined => cups[index];
+
 export const firstCup = cups[0];

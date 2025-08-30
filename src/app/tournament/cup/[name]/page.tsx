@@ -1,13 +1,12 @@
 "use client";
 
-import { use, useCallback, useMemo } from "react";
-import Image from "next/image";
+import { use, useCallback, useEffect, useMemo } from "react";
 import { notFound, useRouter } from "next/navigation";
 
 import { PrimaryButton } from "@/components/Button";
 import { GroupCollection } from "@/components/Group";
 import { useTournament } from "@/components/TournamentContext";
-import { getNextCup, isCup, isLastCup } from "@/lib/cups";
+import { cupForIndex, getNextCup, indexOfCup, isCup, isLastCup } from "@/lib/cups";
 import css from "./page.module.css";
 
 export default function Cup({ params }: Readonly<{ params: Promise<{ name: string }> }>) {
@@ -15,6 +14,7 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
     const router = useRouter();
 
     const { getGroups, completeRound } = useTournament();
+    const { getGroups, completeRound, completedRounds } = useTournament();
 
     const currentGroups = useMemo(() => {
         const groups = getGroups();
@@ -30,6 +30,12 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
             router.replace(`/tournament/cup/${getNextCup(name)}`);
         }
     }, [completeRound, name, router]);
+
+    useEffect(() => {
+        if (indexOfCup(name) !== completedRounds) {
+            router.replace(`/tournament/cup/${cupForIndex(completedRounds)}`);
+        }
+    }, [completedRounds, name, router]);
 
     if (!isCup(name)) {
         return notFound();

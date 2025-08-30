@@ -14,6 +14,7 @@ interface Tournament {
     updateGroupSize: (groupIndex: number, direction: "up" | "down") => void;
     completeRound: () => void;
     canStart: boolean;
+    completedRounds: number;
 }
 
 const TournamentContext = createContext<Tournament>({
@@ -24,6 +25,7 @@ const TournamentContext = createContext<Tournament>({
     updateGroupSize: undefined!,
     completeRound: undefined!,
     canStart: undefined!,
+    completedRounds: undefined!,
 });
 
 export const MAXIMUM_GROUP_SIZE = 8;
@@ -304,8 +306,9 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             updateGroupSize,
             completeRound,
             canStart,
+            completedRounds,
         }),
-        [addPlayer, completeRound, getGroups, movePlayer, removePlayer, updateGroupSize]
+        [addPlayer, canStart, completeRound, completedRounds, getGroups, movePlayer, removePlayer, updateGroupSize]
     );
 
     return <TournamentContext.Provider value={value}>{children}</TournamentContext.Provider>;
