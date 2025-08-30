@@ -135,6 +135,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             const playersAndPositions = Array.from(
                 rounds
                     .entries()
+                    .toArray()
                     .map(([playerId, maybePosition]) => ({
                         playerId,
                         position: maybePosition[roundNumber],
@@ -316,6 +317,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         () =>
             rounds
                 .entries()
+                .toArray()
                 .map(([playerId, positions]) => {
                     const player = players.get(playerId);
 
@@ -326,7 +328,6 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                     return { player, positions };
                 })
                 .filter((x) => x !== undefined)
-                .toArray()
                 .sort((a, b) => {
                     if (a === undefined) {
                         return -1;
