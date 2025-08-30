@@ -290,10 +290,8 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         });
 
-        setCompletedRounds((currentValue) => {
-            return currentValue++;
-        });
-    }, [groupSizes, players, setCompletedRounds, setGroupSizes, setRounds]);
+        setCompletedRounds(completedRounds + 1);
+    }, [completedRounds, groupSizes, players, setCompletedRounds, setGroupSizes, setRounds]);
 
     const canStart = useMemo(() => players.values().some((x) => x.active), [players]);
 
