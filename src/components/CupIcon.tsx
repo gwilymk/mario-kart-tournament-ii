@@ -5,5 +5,5 @@ interface CupIconProps {
 }
 
 export default function CupIcon({ cup }: CupIconProps) {
-    return <img src={`/images/cups/${cup}.webp`} alt={`${cup} cup`} />;
+    return <img src={`images/cups/${cup}.webp`} alt={`${cup} cup`} />;
 }

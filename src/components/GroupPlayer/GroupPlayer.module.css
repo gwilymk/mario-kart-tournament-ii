@@ -38,35 +38,35 @@
 }
 
 .player:nth-child(1).placement {
-    background-image: url("/images/placement/placement-1.webp");
+    background-image: url("images/placement/placement-1.webp");
 }
 
 .player:nth-child(2).placement {
-    background-image: url("/images/placement/placement-2.webp");
+    background-image: url("images/placement/placement-2.webp");
 }
 
 .player:nth-child(3).placement {
-    background-image: url("/images/placement/placement-3.webp");
+    background-image: url("images/placement/placement-3.webp");
 }
 
 .player:nth-child(4).placement {
-    background-image: url("/images/placement/placement-4.webp");
+    background-image: url("images/placement/placement-4.webp");
 }
 
 .player:nth-child(5).placement {
-    background-image: url("/images/placement/placement-5.webp");
+    background-image: url("images/placement/placement-5.webp");
 }
 
 .player:nth-child(6).placement {
-    background-image: url("/images/placement/placement-6.webp");
+    background-image: url("images/placement/placement-6.webp");
 }
 
 .player:nth-child(7).placement {
-    background-image: url("/images/placement/placement-7.webp");
+    background-image: url("images/placement/placement-7.webp");
 }
 
 .player:nth-child(8).placement {
-    background-image: url("/images/placement/placement-8.webp");
+    background-image: url("images/placement/placement-8.webp");
 }
 
 .player .name {

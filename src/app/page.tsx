@@ -14,7 +14,7 @@ export default function Home() {
             <main className={css.main}>
                 <div className={css.logo}>
                     <Image
-                        src="/images/mariokart-logo.svg"
+                        src="images/mariokart-logo.svg"
                         alt="Mariokart Logo"
                         priority={true}
                         fill={true}
