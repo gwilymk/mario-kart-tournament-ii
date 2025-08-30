@@ -47,8 +47,14 @@ export const Group: FC<GroupProps> = ({ group, number, showPlacement }) => {
                 </IconButton>
             </div>
             <ol className={css.players}>
-                {group.players.map((player) => (
-                    <GroupPlayer player={player} key={player.id} showPlacement={showPlacement} showControls={true} />
+                {group.players.map((player, index) => (
+                    <GroupPlayer
+                        player={player}
+                        key={player.id}
+                        showPlacement={showPlacement}
+                        showControls={true}
+                        index={index}
+                    />
                 ))}
             </ol>
         </div>
