@@ -196,15 +196,15 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
                 }
 
                 // find the player with the new position and give them the old position
-                const otherPlayer = Array.from(rounds.entries()).find(
-                    ([_, rounds]) => rounds[completedRounds] === newPosition
+                const otherPlayer = Array.from(rounds.values()).find(
+                    (rounds) => rounds[completedRounds] === newPosition
                 );
 
                 if (otherPlayer == null) {
                     return;
                 }
 
-                otherPlayer[1][completedRounds] = oldPosition;
+                otherPlayer[completedRounds] = oldPosition;
                 playerPositions[completedRounds] = newPosition;
             });
         },
