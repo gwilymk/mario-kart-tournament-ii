@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 import { IconButton } from "@/components/Button";
-import { GroupPlayer } from "@/components/Group/GroupPlayer";
+import { GroupPlayer } from "@/components/GroupPlayer";
 import { MAXIMUM_GROUP_SIZE, MINIMUM_GROUP_SIZE, useTournament } from "@/components/TournamentContext";
 import { Group as PlayerGroup } from "@/lib/tournament";
 import css from "./Group.module.css";
@@ -48,7 +48,7 @@ export const Group: FC<GroupProps> = ({ group, number, showPlacement }) => {
             </div>
             <ol className={css.players}>
                 {group.players.map((player) => (
-                    <GroupPlayer player={player} key={player.id} showPlacement={showPlacement} />
+                    <GroupPlayer player={player} key={player.id} showPlacement={showPlacement} showControls={true} />
                 ))}
             </ol>
         </div>

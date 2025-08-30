@@ -12,23 +12,28 @@ import css from "./GroupPlayer.module.css";
 interface GroupPlayerProps {
     player: Player;
     showPlacement?: boolean;
+    showControls?: boolean;
 }
 
-export const GroupPlayer: FC<GroupPlayerProps> = ({ player, showPlacement }) => {
+export const GroupPlayer: FC<GroupPlayerProps> = ({ player, showPlacement, showControls }) => {
     const { removePlayer, movePlayer } = useTournament();
 
     return (
         <li className={classNames(css.player, { [css.placement]: showPlacement })}>
             <span className={css.name}>{player.name}</span>
-            <IconButton type="button" onClick={() => movePlayer(player.id, "up")} className={css.icon}>
-                <ArrowUpwardIcon />
-            </IconButton>
-            <IconButton type="button" onClick={() => movePlayer(player.id, "down")} className={css.icon}>
-                <ArrowDownwardIcon />
-            </IconButton>
-            <IconButton type="button" onClick={() => removePlayer(player.id)} className={css.icon}>
-                <Delete />
-            </IconButton>
+            {showControls && (
+                <>
+                    <IconButton type="button" onClick={() => movePlayer(player.id, "up")} className={css.icon}>
+                        <ArrowUpwardIcon />
+                    </IconButton>
+                    <IconButton type="button" onClick={() => movePlayer(player.id, "down")} className={css.icon}>
+                        <ArrowDownwardIcon />
+                    </IconButton>
+                    <IconButton type="button" onClick={() => removePlayer(player.id)} className={css.icon}>
+                        <Delete />
+                    </IconButton>
+                </>
+            )}
         </li>
     );
 };
