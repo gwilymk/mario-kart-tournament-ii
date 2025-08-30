@@ -1,4 +1,4 @@
-.chart {
+.container {
     --color-baby-pink: #f7909f;
     --color-pink: #e2647f;
     --color-rose-pink: #d1698c;
@@ -70,4 +70,14 @@
     flex-direction: column;
     justify-content: end;
     align-items: center;
+}
+
+.line {
+    position: absolute;
+    height: 2px;
+    background-color: var(--colour);
+    border-radius: var(--space-xs);
+    transform-origin: 0 0;
+
+    --colour: white;
 }
