@@ -7,6 +7,7 @@ import { Player, PlayerId } from "@/lib/player";
 import { Group } from "@/lib/tournament";
 
 interface Tournament {
+    hasLoaded: boolean;
     addPlayer: (name: string) => Player;
     removePlayer: (playerId: PlayerId) => void;
     getGroups: () => Group[][];
@@ -19,6 +20,7 @@ interface Tournament {
 }
 
 const TournamentContext = createContext<Tournament>({
+    hasLoaded: undefined!,
     addPlayer: undefined!,
     removePlayer: undefined!,
     getGroups: undefined!,
@@ -36,11 +38,19 @@ export const MINIMUM_GROUP_SIZE = 3;
 export const useTournament = () => useContext(TournamentContext);
 
 export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
-    const [rounds, setRounds] = useLocalStorageImmer<Map<PlayerId, (number | undefined)[]>>("rounds", new Map());
-    const [completedRounds, setCompletedRounds] = useLocalStorageState("completedRounds", 0);
-    const [players, setPlayers] = useLocalStorageImmer<Map<PlayerId, Player>>("players", new Map());
+    const [rounds, setRounds, hasLoadedRounds] = useLocalStorageImmer<Map<PlayerId, (number | undefined)[]>>(
+        "rounds",
+        new Map()
+    );
+    const [completedRounds, setCompletedRounds, hasLoadedCompletedRounds] = useLocalStorageState("completedRounds", 0);
+    const [players, setPlayers, hasLoadedPlayers] = useLocalStorageImmer<Map<PlayerId, Player>>("players", new Map());
     // also includes historical group sizes for rendering purposes
-    const [groupSizes, setGroupSizes] = useLocalStorageImmer("groupSizes", [[0]]);
+    const [groupSizes, setGroupSizes, hasLoadedGroupSizes] = useLocalStorageImmer("groupSizes", [[0]]);
+
+    const hasLoaded = useMemo(
+        () => hasLoadedRounds && hasLoadedCompletedRounds && hasLoadedPlayers && hasLoadedGroupSizes,
+        [hasLoadedCompletedRounds, hasLoadedGroupSizes, hasLoadedPlayers, hasLoadedRounds]
+    );
 
     const addPlayer = useCallback(
         (name: string): Player => {
@@ -318,6 +328,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const value = useMemo(
         () => ({
+            hasLoaded,
             addPlayer,
             removePlayer,
             getGroups,
@@ -334,6 +345,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             completeRound,
             completedRounds,
             getGroups,
+            hasLoaded,
             movePlayer,
             removePlayer,
             summary,

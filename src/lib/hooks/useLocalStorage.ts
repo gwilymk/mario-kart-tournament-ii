@@ -10,11 +10,13 @@ enableMapSet();
 
 export const useLocalStorageState = <T>(key: string, initialValue: T) => {
     const [value, setValue] = useState<T>(initialValue);
+    const [hasLoaded, setHasLoaded] = useState(false);
 
     // Handle loading the initial value
     useEffect(() => {
         const stored = _localStorage?.getItem(key);
         setValue(stored ? parseJson(stored) : initialValue);
+        setHasLoaded(true);
     }, [key, initialValue]);
 
     // Handle when the value changes
@@ -22,7 +24,7 @@ export const useLocalStorageState = <T>(key: string, initialValue: T) => {
         _localStorage?.setItem(key, toJson(value));
     }, [key, value]);
 
-    return [value, setValue] as const;
+    return [value, setValue, hasLoaded] as const;
 };
 
 export const useLocalStorageImmer = <T>(key: string, initialValue: T) => {
@@ -47,5 +49,7 @@ export const useLocalStorageImmer = <T>(key: string, initialValue: T) => {
         _localStorage?.setItem(key, toJson(value));
     }, [key, value]);
 
-    return [value, setValue] as const;
+    const hasLoaded = storedKey !== undefined;
+
+    return [value, setValue, hasLoaded] as const;
 };
