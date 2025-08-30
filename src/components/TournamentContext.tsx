@@ -6,6 +6,8 @@ import { useLocalStorageImmer, useLocalStorageState } from "@/lib/hooks/useLocal
 import { Player, PlayerId } from "@/lib/player";
 import { Group } from "@/lib/tournament";
 
+const isDefined = <T,>(x: T | undefined | null): x is T => x !== undefined && x !== null;
+
 interface Tournament {
     hasLoaded: boolean;
     addPlayer: (name: string) => Player;
@@ -322,7 +324,31 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
                     return { player, positions };
                 })
-                .toArray(),
+                .filter((x) => x !== undefined)
+                .toArray()
+                .sort((a, b) => {
+                    if (a === undefined) {
+                        return -1;
+                    }
+                    if (b === undefined) {
+                        return 1;
+                    }
+
+                    for (let round = 0; round < a.positions.length; round++) {
+                        const positionA = a.positions[round];
+                        const positionB = b.positions[round];
+
+                        if (isDefined(positionA) && isDefined(positionB)) {
+                            return positionA - positionB;
+                        } else if (!isDefined(positionA) && isDefined(positionB)) {
+                            return 1;
+                        } else if (!isDefined(positionB) && isDefined(positionA)) {
+                            return -1;
+                        }
+                    }
+
+                    return a.player.name.localeCompare(b.player.name);
+                }),
         [players, rounds]
     );
 
