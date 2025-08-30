@@ -10,6 +10,12 @@
 
     --primary-gradient: linear-gradient(45deg, var(--primary), var(--primary-light), var(--primary));
 
+    --secondary: #091d36;
+    --secondary-light: #0f315c;
+    --secondary-dark: #000102;
+
+    --secondary-gradient: linear-gradient(45deg, var(--secondary), var(--secondary-light), var(--secondary));
+
     --background-color-light: rgb(62, 62, 62);
     --border-color-light: rgb(104, 104, 104);
 
