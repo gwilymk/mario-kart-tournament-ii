@@ -19,6 +19,7 @@ interface Tournament {
     canStart: boolean;
     completedRounds: number;
     summary: { player: Player; positions: (number | undefined)[] }[];
+    reset: () => void;
 }
 
 const TournamentContext = createContext<Tournament>({
@@ -32,6 +33,7 @@ const TournamentContext = createContext<Tournament>({
     canStart: undefined!,
     completedRounds: undefined!,
     summary: undefined!,
+    reset: undefined!,
 });
 
 export const MAXIMUM_GROUP_SIZE = 8;
@@ -352,6 +354,13 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         [players, rounds]
     );
 
+    const reset = useCallback(() => {
+        setRounds(new Map());
+        setCompletedRounds(0);
+        setPlayers(new Map());
+        setGroupSizes([[0]]);
+    }, [setCompletedRounds, setGroupSizes, setPlayers, setRounds]);
+
     const value = useMemo(
         () => ({
             hasLoaded,
@@ -364,6 +373,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             canStart,
             completedRounds,
             summary,
+            reset,
         }),
         [
             addPlayer,
@@ -374,6 +384,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             hasLoaded,
             movePlayer,
             removePlayer,
+            reset,
             summary,
             updateGroupSize,
         ]
