@@ -52,13 +52,13 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
                 <h1>Cup</h1>
             </div>
             {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
-            <AddPlayerModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
             <div className="footer">
                 <SecondaryButton onClick={() => setIsOpen(true)}>Add player</SecondaryButton>
                 <PrimaryButton onClick={nextRound}>
                     {isLastCup(name) ? "Finish tournament" : "Next round"}
                 </PrimaryButton>
             </div>
+            <AddPlayerModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );
 }
