@@ -1,0 +1,30 @@
+.primary {
+    position: relative;
+
+    color: var(--foreground);
+    font-weight: 600;
+
+    background: var(--primary-gradient);
+    border: 2px solid var(--primary-light);
+    text-shadow:
+        1px 1px 0 var(--primary-dark),
+        2px 2px 0 var(--primary-dark);
+
+    filter: brightness(1) grayscale(0);
+
+    transition: filter ease-out 0.2s;
+}
+
+.primary:disabled {
+    filter: brightness(0.8) grayscale(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .primary:not(:disabled):hover {
+        filter: brightness(0.7) grayscale(0);
+    }
+
+    .primary:disabled:hover {
+        filter: brightness(0.6) grayscale(1);
+    }
+}

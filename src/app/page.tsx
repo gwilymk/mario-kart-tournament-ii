@@ -1,63 +1,33 @@
 "use client";
 
-import styles from "./page.module.css";
-import { Tournament } from "./_lib/tournament";
-import TournamentDisplay from "./_components/TournamentDisplay";
-import { useReducer, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const tournament = new Tournament();
+import css from "@/app/page.module.css";
+import { PrimaryButton } from "@/components/Button";
 
-export default function Home(): React.ReactNode {
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+export default function Home() {
+    const router = useRouter();
 
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <AddPlayer
-          onAdd={(name) => {
-            tournament.addPlayer(name);
-            forceUpdate();
-          }}
-        />
-        <TournamentDisplay
-          groups={tournament.getGroups()}
-          movePlayer={(id, direction) => {
-            tournament.movePlayer(id, direction);
-            forceUpdate();
-          }}
-          updateGroupSize={(id, direction) => {
-            tournament.updateGroupSize(id, direction);
-            forceUpdate();
-          }}
-          completeRound={() => {
-            tournament.completeRound();
-            forceUpdate();
-          }}
-        />
-      </main>
-    </div>
-  );
-}
-
-function AddPlayer({
-  onAdd,
-}: Readonly<{ onAdd: (name: string) => void }>): React.ReactNode {
-  const [name, setName] = useState("");
-
-  return (
-    <label>
-      <span>Add player:</span>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key == "Enter") {
-            onAdd(name);
-            setName("");
-          }
-        }}
-      />
-    </label>
-  );
+    return (
+        <div className={css.page}>
+            <main className={css.main}>
+                <div className={css.logo}>
+                    <Image
+                        src="/images/mariokart-logo.svg"
+                        alt="Mariokart Logo"
+                        priority={true}
+                        fill={true}
+                        objectFit="contain"
+                        objectPosition="center"
+                    />
+                </div>
+                <div className={css.controls}>
+                    <PrimaryButton type="button" onClick={() => router.push("/tournament/player-setup")}>
+                        Create tournament
+                    </PrimaryButton>
+                </div>
+            </main>
+        </div>
+    );
 }

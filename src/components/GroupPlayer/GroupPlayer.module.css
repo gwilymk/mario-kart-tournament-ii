@@ -1,0 +1,103 @@
+.player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-s);
+    border-radius: var(--space-l);
+    gap: var(--space-xxs);
+
+    background: var(--transparent-background-color-light);
+    border: 1px solid var(--transparent-border-color-light);
+    backdrop-filter: var(--transparent-backdrop-filter);
+
+    line-height: 20px;
+
+    background-repeat: no-repeat;
+    background-position: var(--space-xs) center;
+    background-size: 24px;
+
+    text-shadow:
+        1px 1px 0 var(--transparent-background-color),
+        2px 2px 0 var(--transparent-background-color);
+
+    box-shadow:
+        1px 1px 2px var(--transparent-background-color-light),
+        -1px 1px 2px var(--transparent-background-color-light);
+
+    text-overflow: ellipsis;
+}
+
+.player:not(:first-child) {
+    margin-top: var(--space-xs);
+}
+
+.player.placement {
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-l);
+}
+
+.player:nth-child(1).placement {
+    background-image: url("/images/placement/placement-1.webp");
+}
+
+.player:nth-child(2).placement {
+    background-image: url("/images/placement/placement-2.webp");
+}
+
+.player:nth-child(3).placement {
+    background-image: url("/images/placement/placement-3.webp");
+}
+
+.player:nth-child(4).placement {
+    background-image: url("/images/placement/placement-4.webp");
+}
+
+.player:nth-child(5).placement {
+    background-image: url("/images/placement/placement-5.webp");
+}
+
+.player:nth-child(6).placement {
+    background-image: url("/images/placement/placement-6.webp");
+}
+
+.player:nth-child(7).placement {
+    background-image: url("/images/placement/placement-7.webp");
+}
+
+.player:nth-child(8).placement {
+    background-image: url("/images/placement/placement-8.webp");
+}
+
+.player .name {
+    flex-grow: 1;
+    user-select: none;
+}
+
+.icon {
+    margin: 0;
+    opacity: 0;
+
+    transform: scale(0.9);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.icon > svg {
+    filter: drop-shadow(2px 2px 0 var(--transparent-background-color));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .player:hover .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media not ((hover: hover) and (pointer: fine)) {
+    .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,70 @@
+.group {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space-s);
+    padding: var(--space-xs);
+
+    background: var(--background-color);
+    backdrop-filter: var(--transparent-backdrop-filter);
+    border: 2px solid var(--border-color);
+    border-radius: var(--space-m);
+
+    min-width: 200px;
+
+    --background-color: var(--group-1-color);
+    --border-color: var(--group-1-color-light);
+}
+
+.group .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--space-s);
+    padding: 0 var(--space-xs);
+}
+
+.group .title {
+    flex-grow: 1;
+
+    text-align: center;
+    user-select: none;
+
+    text-shadow:
+        1px 1px 0 var(--transparent-background-color),
+        2px 2px 0 var(--transparent-background-color);
+}
+
+.group .players {
+    list-style: none;
+    padding-inline: 0;
+}
+
+.icon {
+    margin: 0;
+    opacity: 0;
+
+    transform: scale(0.9);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.icon > svg {
+    filter: drop-shadow(2px 2px 0 var(--transparent-background-color));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .group:hover .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media not ((hover: hover) and (pointer: fine)) {
+    .icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

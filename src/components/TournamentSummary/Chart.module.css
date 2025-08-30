@@ -1,0 +1,83 @@
+.container {
+    --color-baby-pink: #f7909f;
+    --color-pink: #e2647f;
+    --color-rose-pink: #d1698c;
+    --color-coral-pink: #e8555f;
+    --color-red: #da332a;
+    --color-orange: #fe672a;
+    --color-apricot-orange: #ff7a34;
+    --color-yellow: #ffb22c;
+    --color-apple-green: #83ba69;
+    --color-leaf-green: #4ca64e;
+    --color-green: #2a897e;
+    --color-turquoise-green: #287f91;
+    --color-light-blue: #62b0dc;
+    --color-sky-blue: #6492cb;
+    --color-aqua-blue: #4975c4;
+    --color-blue: #3b4f93;
+    --color-blue-black: #32436f;
+    --color-violet: #5f5395;
+    --color-grape: #6f4483;
+    --color-dark-red: #5a3340;
+}
+
+.plot {
+    width: var(--space-m);
+    height: var(--space-m);
+
+    background-color: var(--colour);
+    border: 2px solid color-mix(in srgb, var(--colour), black 70%);
+    border-radius: 50%;
+
+    grid-area: data;
+    align-self: center;
+    justify-self: center;
+
+    --colour: none;
+}
+
+.chart {
+    display: grid;
+    grid-template-columns: [name] min-content [data] repeat(var(--columns), 1fr);
+    grid-template-rows: [header] auto [data] repeat(var(--rows), 1fr);
+
+    grid-gap: var(--space-m);
+
+    --rows: 1;
+    --columns: 1;
+}
+
+.name {
+    grid-area: name;
+    grid-row-start: 2;
+
+    align-self: center;
+
+    --colour: white;
+}
+
+.name > * {
+    background-color: color-mix(in srgb, var(--colour), transparent 75%) !important;
+    border-color: color-mix(in srgb, var(--colour), var(--transparent-border-color-light) 80%) !important;
+}
+
+.cup {
+    grid-area: header / 3;
+    align-self: center;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.line {
+    position: absolute;
+    height: 2px;
+    background-color: var(--colour);
+    border-radius: var(--space-xs);
+    transform-origin: 0 0;
+
+    --colour: white;
+}

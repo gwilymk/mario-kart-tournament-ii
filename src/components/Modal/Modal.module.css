@@ -1,0 +1,82 @@
+.wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    padding: var(--space-m);
+    border-radius: var(--space-s);
+
+    width: auto;
+    max-width: 50%;
+
+    display: none;
+    flex-direction: column;
+
+    gap: var(--space-s);
+
+    border: 1px solid var(--border-color-light);
+    background: var(--background-color-light);
+
+    color: var(--foreground);
+
+    box-shadow:
+        1px 1px 2px var(--transparent-background-color-light),
+        -1px 1px 2px var(--transparent-background-color-light);
+
+    animation: fadeOut 0.2s ease forwards;
+
+    transition:
+        display 0.2s allow-discrete,
+        overlay 0.2s allow-discrete;
+}
+
+.modal::backdrop {
+    transition:
+        display 0.2s allow-discrete,
+        overlay 0.2s allow-discrete;
+    animation: fadeOut 0.22s ease forwards;
+}
+
+.modal[open] {
+    animation: fadeIn 0.2s ease forwards;
+    display: flex;
+}
+
+.modal[open]::backdrop {
+    background: var(--transparent-background-color);
+    backdrop-filter: var(--transparent-backdrop-filter);
+
+    animation: fadeIn 0.2s ease forwards;
+}
+
+.close {
+    position: absolute;
+    top: var(--space-xxs);
+    right: var(--space-xxs);
+}

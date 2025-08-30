@@ -14,7 +14,12 @@
     flex-direction: column;
     gap: var(--space-m);
     grid-row-start: 2;
-    width: 60%;
+}
+
+.footer {
+    grid-row-start: 3;
+    display: flex;
+    gap: 24px;
 }
 
 @media (max-width: 600px) {
@@ -26,16 +31,10 @@
     .main {
         align-items: center;
     }
-}
 
-.logo {
-    position: relative;
-    height: 200px;
-}
-
-.controls {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    .footer {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
 }

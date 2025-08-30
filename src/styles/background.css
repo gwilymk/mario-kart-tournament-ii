@@ -1,0 +1,16 @@
+@keyframes background {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 1280px 1280px;
+    }
+}
+
+body {
+    background-image: url("/images/background.webp");
+    background-repeat: repeat;
+    animation: background 60s linear infinite;
+    will-change: background-position;
+}

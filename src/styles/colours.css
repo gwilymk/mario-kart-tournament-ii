@@ -1,0 +1,39 @@
+:root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    --disabled: #6a6a6a;
+
+    --primary: #f89c0b;
+    --primary-light: #f8c206;
+    --primary-dark: #b37209;
+
+    --primary-gradient: linear-gradient(45deg, var(--primary), var(--primary-light), var(--primary));
+
+    --secondary: #091d36;
+    --secondary-light: #0f315c;
+    --secondary-dark: #000102;
+
+    --secondary-gradient: linear-gradient(45deg, var(--secondary), var(--secondary-light), var(--secondary));
+
+    --background-color-light: rgb(62, 62, 62);
+    --border-color-light: rgb(104, 104, 104);
+
+    --transparent-background-color: rgba(15, 15, 15, 0.4);
+    --transparent-background-hover-color: rgba(30, 30, 30, 0.6);
+    --transparent-background-color-light: rgba(200, 200, 200, 0.2);
+    --transparent-border-color: rgba(30, 30, 30, 1);
+    --transparent-border-color-light: rgba(180, 180, 180, 0.2);
+    --transparent-backdrop-filter: blur(8px);
+
+    --group-1-color: rgba(137, 48, 51, 0.4);
+    --group-1-color-light: rgba(149, 69, 71, 0.4);
+    --group-2-color: rgba(137, 109, 31, 0.4);
+    --group-2-color-light: rgba(149, 124, 53, 0.4);
+    --group-3-color: rgba(74, 109, 20, 0.4);
+    --group-3-color-light: rgba(92, 124, 43, 0.4);
+    --group-4-color: rgba(13, 70, 106, 0.4);
+    --group-4-color-light: rgba(37, 88, 121, 0.4);
+    --group-5-color: rgba(57, 41, 79, 0.4);
+    --group-5-color-light: rgba(77, 62, 97, 0.4);
+}
