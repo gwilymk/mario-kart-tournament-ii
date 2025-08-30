@@ -5,12 +5,10 @@ import KeyboardReturn from "@mui/icons-material/KeyboardReturn";
 
 import { IconButton } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { useTournament } from "@/components/TournamentContext";
 
-export default function PlayerNameInput({
-    onSubmit,
-}: Readonly<{
-    onSubmit: (playerName: string) => void;
-}>) {
+export default function PlayerNameInput() {
+    const { addPlayer } = useTournament();
     const [playerName, setPlayerName] = useState("");
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
@@ -22,7 +20,7 @@ export default function PlayerNameInput({
             return;
         }
 
-        onSubmit(trimmedPlayerName);
+        addPlayer(trimmedPlayerName);
 
         setPlayerName("");
     };

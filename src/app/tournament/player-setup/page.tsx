@@ -10,7 +10,7 @@ import { useTournament } from "@/components/TournamentContext";
 import { firstCup } from "@/lib/cups";
 
 export default function AddPlayers() {
-    const { addPlayer, getGroups, canStart } = useTournament();
+    const { getGroups, canStart } = useTournament();
     const router = useRouter();
 
     const currentGroups = useMemo(() => {
@@ -21,7 +21,7 @@ export default function AddPlayers() {
     return (
         <>
             <h1>Player Setup</h1>
-            <PlayerNameInput onSubmit={addPlayer} />
+            <PlayerNameInput />
             {currentGroups.length > 0 && currentGroups[0].players.length > 0 && (
                 <GroupCollection groups={currentGroups} />
             )}
