@@ -15,6 +15,7 @@ interface Tournament {
     completeRound: () => void;
     canStart: boolean;
     completedRounds: number;
+    summary: { player: Player; positions: (number | undefined)[] }[];
 }
 
 const TournamentContext = createContext<Tournament>({
@@ -26,6 +27,7 @@ const TournamentContext = createContext<Tournament>({
     completeRound: undefined!,
     canStart: undefined!,
     completedRounds: undefined!,
+    summary: undefined!,
 });
 
 export const MAXIMUM_GROUP_SIZE = 8;
@@ -297,6 +299,23 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const canStart = useMemo(() => players.values().some((x) => x.active), [players]);
 
+    const summary = useMemo(
+        () =>
+            rounds
+                .entries()
+                .map(([playerId, positions]) => {
+                    const player = players.get(playerId);
+
+                    if (!player) {
+                        return;
+                    }
+
+                    return { player, positions };
+                })
+                .toArray(),
+        [players, rounds]
+    );
+
     const value = useMemo(
         () => ({
             addPlayer,
@@ -307,8 +326,19 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
             completeRound,
             canStart,
             completedRounds,
+            summary,
         }),
-        [addPlayer, canStart, completeRound, completedRounds, getGroups, movePlayer, removePlayer, updateGroupSize]
+        [
+            addPlayer,
+            canStart,
+            completeRound,
+            completedRounds,
+            getGroups,
+            movePlayer,
+            removePlayer,
+            summary,
+            updateGroupSize,
+        ]
     );
 
     return <TournamentContext.Provider value={value}>{children}</TournamentContext.Provider>;
