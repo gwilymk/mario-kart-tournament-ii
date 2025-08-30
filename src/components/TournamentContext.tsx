@@ -133,9 +133,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
         let roundNumber = 0;
         for (const roundGroupSizes of groupSizes) {
             const playersAndPositions = Array.from(
-                rounds
-                    .entries()
-                    .toArray()
+                Array.from(rounds.entries())
                     .map(([playerId, maybePosition]) => ({
                         playerId,
                         position: maybePosition[roundNumber],
@@ -315,9 +313,7 @@ export const TournamentProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const summary = useMemo(
         () =>
-            rounds
-                .entries()
-                .toArray()
+            Array.from(rounds.entries())
                 .map(([playerId, positions]) => {
                     const player = players.get(playerId);
 
