@@ -1,6 +1,8 @@
 import { CSSProperties, FC, Fragment, useMemo } from "react";
 
+import CupIcon from "@/components/CupIcon";
 import { GroupPlayer } from "@/components/GroupPlayer";
+import { Cup, cups } from "@/lib/cups";
 import { Player } from "@/lib/player";
 import css from "./Chart.module.css";
 
@@ -22,7 +24,7 @@ const Plot: FC<{ colour: string; value: number | undefined | null; column: numbe
             style={
                 {
                     "--colour": hasValue ? colour : undefined,
-                    gridRow: hasValue ? value + 1 : undefined,
+                    gridRow: hasValue ? value + 2 : undefined,
                     gridColumn: column,
                 } as PlotCSS
             }
@@ -34,6 +36,12 @@ const Name: FC<{ player: Player; colour: string; row: number }> = ({ player, col
     <span className={css.name} style={{ gridRow: row, "--colour": colour } as PlotCSS}>
         <GroupPlayer player={player} showPlacement={false} />
     </span>
+);
+
+const CupHeader: FC<{ cup: Cup; index: number }> = ({ cup, index }) => (
+    <div className={css.cup} style={{ gridColumn: index + 3 }}>
+        <CupIcon cup={cup} />
+    </div>
 );
 
 interface ChartProps {
@@ -78,11 +86,14 @@ export const Chart: FC<ChartProps> = ({ data }) => {
     return (
         <div>
             <div className={css.chart} style={{ "--rows": data.length, "--columns": columns } as ChartCSS}>
+                {cups.map((cup, index) => (
+                    <CupHeader cup={cup} key={cup} index={index} />
+                ))}
                 {data.map(({ player, values }, index) => {
                     const colour = getColour(index);
                     return (
                         <Fragment key={player.id}>
-                            <Name player={player} row={index + 1} colour={colour} />
+                            <Name player={player} row={index + 2} colour={colour} />
                             {values.map((value, index) => (
                                 <Plot key={index} colour={colour} value={value} column={index + 2} />
                             ))}

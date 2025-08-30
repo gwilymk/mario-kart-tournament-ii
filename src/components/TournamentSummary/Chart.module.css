@@ -1,27 +1,4 @@
-.plot {
-    width: var(--space-m);
-    height: var(--space-m);
-
-    background-color: var(--colour);
-    border: 2px solid color-mix(in srgb, var(--colour), black 70%);
-    border-radius: 50%;
-
-    grid-column-start: 2;
-    align-self: center;
-
-    --colour: none;
-}
-
 .chart {
-    display: grid;
-    grid-template-columns: min-content repeat(var(--columns), min-content);
-    grid-template-rows: repeat(var(--rows), min-content);
-
-    grid-gap: var(--space-m);
-
-    --rows: 1;
-    --columns: 1;
-
     --color-baby-pink: #f7909f;
     --color-pink: #e2647f;
     --color-rose-pink: #d1698c;
@@ -44,8 +21,35 @@
     --color-dark-red: #5a3340;
 }
 
+.plot {
+    width: var(--space-m);
+    height: var(--space-m);
+
+    background-color: var(--colour);
+    border: 2px solid color-mix(in srgb, var(--colour), black 70%);
+    border-radius: 50%;
+
+    grid-area: data;
+    align-self: center;
+    justify-self: center;
+
+    --colour: none;
+}
+
+.chart {
+    display: grid;
+    grid-template-columns: [name] min-content [data] repeat(var(--columns), 1fr);
+    grid-template-rows: [header] auto [data] repeat(var(--rows), 1fr);
+
+    grid-gap: var(--space-m);
+
+    --rows: 1;
+    --columns: 1;
+}
+
 .name {
-    grid-column: 1;
+    grid-area: name;
+    grid-row-start: 2;
 
     align-self: center;
 
@@ -53,6 +57,17 @@
 }
 
 .name > * {
-    background-color: color-mix(in srgb, var(--colour), transparent 75%);
-    border-color: color-mix(in srgb, var(--colour), var(--transparent-border-color-light) 80%);
+    background-color: color-mix(in srgb, var(--colour), transparent 75%) !important;
+    border-color: color-mix(in srgb, var(--colour), var(--transparent-border-color-light) 80%) !important;
+}
+
+.cup {
+    grid-area: header / 3;
+    align-self: center;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
 }

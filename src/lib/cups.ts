@@ -1,4 +1,4 @@
-const cups = ["shell", "banana", "leaf", "lightning", "mushroom", "flower", "star", "special"];
+export const cups = ["shell", "banana", "leaf", "lightning", "mushroom", "flower", "star", "special"];
 
 export type Cup = (typeof cups)[number];
 
