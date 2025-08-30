@@ -7,7 +7,11 @@ import { IconButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { useTournament } from "@/components/TournamentContext";
 
-export default function PlayerNameInput() {
+interface PlayerNameInputProps {
+    onPlayerAdded?: (name: string) => void;
+}
+
+export default function PlayerNameInput({ onPlayerAdded }: PlayerNameInputProps) {
     const { addPlayer } = useTournament();
     const [playerName, setPlayerName] = useState("");
 
@@ -21,6 +25,7 @@ export default function PlayerNameInput() {
         }
 
         addPlayer(trimmedPlayerName);
+        onPlayerAdded?.(trimmedPlayerName);
 
         setPlayerName("");
     };

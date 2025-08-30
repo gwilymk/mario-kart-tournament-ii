@@ -1,9 +1,10 @@
 "use client";
 
-import { use, useCallback, useEffect, useMemo } from "react";
+import { use, useCallback, useEffect, useMemo, useState } from "react";
 import { notFound, useRouter } from "next/navigation";
 
-import { PrimaryButton } from "@/components/Button";
+import AddPlayerModal from "@/components/AddPlayerModal";
+import { PrimaryButton, SecondaryButton } from "@/components/Button";
 import { GroupCollection } from "@/components/Group";
 import { useTournament } from "@/components/TournamentContext";
 import { cupForIndex, getNextCup, indexOfCup, isCup, isLastCup } from "@/lib/cups";
@@ -13,8 +14,9 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
     const { name } = use(params);
     const router = useRouter();
 
-    const { getGroups, completeRound } = useTournament();
     const { getGroups, completeRound, completedRounds } = useTournament();
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const currentGroups = useMemo(() => {
         const groups = getGroups();
@@ -48,7 +50,9 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
                 <h1>Cup</h1>
             </div>
             {currentGroups.length > 0 && <GroupCollection groups={currentGroups} showPlacement={true} />}
+            <AddPlayerModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
             <div className="footer">
+                <SecondaryButton onClick={() => setIsOpen(true)}>Add player</SecondaryButton>
                 <PrimaryButton onClick={nextRound}>
                     {isLastCup(name) ? "Finish tournament" : "Next round"}
                 </PrimaryButton>
