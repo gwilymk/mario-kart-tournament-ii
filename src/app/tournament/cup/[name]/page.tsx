@@ -34,7 +34,9 @@ export default function Cup({ params }: Readonly<{ params: Promise<{ name: strin
     }, [completeRound, name, router]);
 
     useEffect(() => {
-        if (indexOfCup(name) !== completedRounds) {
+        if (completedRounds === 0) {
+            router.replace("/tournament/player-setup");
+        } else if (indexOfCup(name) !== completedRounds - 1 && !isLastCup(name)) {
             router.replace(`/tournament/cup/${cupForIndex(completedRounds)}`);
         }
     }, [completedRounds, name, router]);

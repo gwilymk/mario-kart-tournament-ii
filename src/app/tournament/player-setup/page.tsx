@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import { PrimaryButton } from "@/components/Button";
@@ -10,13 +10,18 @@ import { useTournament } from "@/components/TournamentContext";
 import { firstCup } from "@/lib/cups";
 
 export default function AddPlayers() {
-    const { getGroups, canStart } = useTournament();
+    const { getGroups, canStart, completeRound } = useTournament();
     const router = useRouter();
 
     const currentGroups = useMemo(() => {
         const groups = getGroups();
         return groups[groups.length - 1];
     }, [getGroups]);
+
+    const startTournament = useCallback(() => {
+        completeRound();
+        router.replace(`/tournament/cup/${firstCup}`);
+    }, [completeRound, router]);
 
     return (
         <>
@@ -26,7 +31,7 @@ export default function AddPlayers() {
                 <GroupCollection groups={currentGroups} />
             )}
             <div className="footer">
-                <PrimaryButton onClick={() => router.replace(`/tournament/cup/${firstCup}`)} disabled={!canStart}>
+                <PrimaryButton onClick={startTournament} disabled={!canStart}>
                     Start Tournament
                 </PrimaryButton>
             </div>
