@@ -34,9 +34,11 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, showCloseButton = true,
             {/* @ts-expect-error closedby does exist on dialog */}
             <dialog ref={modalRef} className={css.modal} onClose={() => onClose()} closedby="any">
                 {showCloseButton && (
-                    <IconButton type="button" onClick={() => onClose()} className={css.close}>
-                        <CloseIcon />
-                    </IconButton>
+                    <div className={css.close}>
+                        <IconButton type="button" onClick={() => onClose()}>
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
                 )}
                 {children}
             </dialog>
