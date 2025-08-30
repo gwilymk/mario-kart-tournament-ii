@@ -7,19 +7,26 @@ import classNames from "classnames";
 import { IconButton } from "@/components/Button";
 import { useTournament } from "@/components/TournamentContext";
 import { Player } from "@/lib/player";
+import { imagePrefix } from "@/lib/prefix";
 import css from "./GroupPlayer.module.css";
 
 interface GroupPlayerProps {
     player: Player;
+    index?: number;
     showPlacement?: boolean;
     showControls?: boolean;
 }
 
-export const GroupPlayer: FC<GroupPlayerProps> = ({ player, showPlacement, showControls }) => {
+export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement, showControls }) => {
     const { removePlayer, movePlayer } = useTournament();
 
+    const backgroundImage =
+        index !== undefined && showPlacement
+            ? `url(\"${imagePrefix}/images/placement/placement-${index + 1}.webp\")`
+            : undefined;
+
     return (
-        <li className={classNames(css.player, { [css.placement]: showPlacement })}>
+        <li className={classNames(css.player, { [css.placement]: showPlacement })} style={{ backgroundImage }}>
             <span className={css.name}>{player.name}</span>
             {showControls && (
                 <>

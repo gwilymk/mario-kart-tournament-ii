@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import css from "@/app/page.module.css";
 import { PrimaryButton } from "@/components/Button";
+import { imagePrefix } from "@/lib/prefix";
 
 export default function Home() {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function Home() {
             <main className={css.main}>
                 <div className={css.logo}>
                     <Image
-                        src="images/mariokart-logo.svg"
+                        src={`${imagePrefix}/images/mariokart-logo.svg`}
                         alt="Mariokart Logo"
                         priority={true}
                         fill={true}
