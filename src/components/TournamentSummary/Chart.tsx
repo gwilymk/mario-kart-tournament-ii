@@ -39,8 +39,8 @@ const Plot = forwardRef<
     );
 });
 
-const Name: FC<{ player: Player; colour: string; row: number }> = ({ player, colour, row }) => (
-    <span className={css.name} style={{ gridRow: row, "--colour": colour } as PlotCSS}>
+const Name: FC<{ player: Player; colour: string; row: number; column: number }> = ({ player, colour, row, column }) => (
+    <span className={css.name} style={{ gridRow: row, gridColumn: column, "--colour": colour } as PlotCSS}>
         <GroupPlayer player={player} showPlacement={false} />
     </span>
 );
@@ -200,7 +200,7 @@ export const Chart: FC<ChartProps> = ({ data }) => {
                 .filter(({ values }) => values[columns - 1] !== undefined)
                 .sort(({ values: valuesA }, { values: valuesB }) => valuesA[columns - 1]! - valuesB[columns - 1]!)
                 .map(({ player }) => player),
-        [data]
+        [columns, data]
     );
 
     return (
@@ -214,7 +214,7 @@ export const Chart: FC<ChartProps> = ({ data }) => {
                     const endPlayer = finalRoster[index];
                     return (
                         <Fragment key={player.id}>
-                            <Name player={player} row={index + 2} colour={colour} />
+                            <Name player={player} row={index + 2} colour={colour} column={0} />
                             {values.map((value, index) => (
                                 <Plot
                                     key={index}
@@ -228,7 +228,12 @@ export const Chart: FC<ChartProps> = ({ data }) => {
                                 />
                             ))}
                             {endPlayer && (
-                                <Name player={endPlayer} row={index + 2} colour={colours.get(endPlayer.id)!} />
+                                <Name
+                                    player={endPlayer}
+                                    row={index + 2}
+                                    colour={colours.get(endPlayer.id)!}
+                                    column={columns + 2}
+                                />
                             )}
                         </Fragment>
                     );
