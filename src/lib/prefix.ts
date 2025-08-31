@@ -1,1 +1,3 @@
-export const imagePrefix = process.env.PAGES_BASE_PATH ? `${process.env.PAGES_BASE_PATH}/` : "";
+import nextConfig from "../../next.config";
+
+export const getImageUrl = (url: string) => `${nextConfig.basePath ?? ""}${url}`;

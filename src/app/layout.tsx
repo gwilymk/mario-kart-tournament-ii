@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import { imagePrefix } from "@/lib/prefix";
+import { getImageUrl } from "@/lib/prefix";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang="en">
             <body
                 className={`${geistSans.variable} ${geistMono.variable}`}
-                style={{ backgroundImage: `url(\"${imagePrefix}/images/background.webp\")` }}
+                style={{ backgroundImage: `url(\"${getImageUrl("/images/background.webp")}\")` }}
             >
                 {children}
             </body>

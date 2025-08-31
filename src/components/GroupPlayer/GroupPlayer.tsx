@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { IconButton } from "@/components/Button";
 import { useTournament } from "@/components/TournamentContext";
 import { Player } from "@/lib/player";
-import { imagePrefix } from "@/lib/prefix";
+import { getImageUrl } from "@/lib/prefix";
 import css from "./GroupPlayer.module.css";
 
 interface GroupPlayerProps {
@@ -22,7 +22,7 @@ export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement
 
     const backgroundImage =
         index !== undefined && showPlacement
-            ? `url(\"${imagePrefix}/images/placement/placement-${index + 1}.webp\")`
+            ? `url(\"${getImageUrl(`/images/placement/placement-${index + 1}.webp`)}\")`
             : undefined;
 
     return (
