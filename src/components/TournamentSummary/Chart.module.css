@@ -38,7 +38,7 @@
 
 .chart {
     display: grid;
-    grid-template-columns: [name] min-content [data] repeat(var(--columns), 1fr);
+    grid-template-columns: [name] min-content [data] repeat(var(--columns), 1fr) min-content;
     grid-template-rows: [header] auto [data] repeat(var(--rows), 1fr);
 
     grid-gap: var(--space-m);
@@ -48,9 +48,6 @@
 }
 
 .name {
-    grid-area: name;
-    grid-row-start: 2;
-
     align-self: center;
 
     --colour: white;

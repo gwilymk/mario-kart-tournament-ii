@@ -194,6 +194,15 @@ export const Chart: FC<ChartProps> = ({ data }) => {
         new Map<string, Map<number, HTMLSpanElement | null>>(data.map((x) => [x.player.id, new Map()]))
     );
 
+    const finalRoster = useMemo(
+        () =>
+            data
+                .filter(({ values }) => values[columns - 1] !== undefined)
+                .sort(({ values: valuesA }, { values: valuesB }) => valuesA[columns - 1]! - valuesB[columns - 1]!)
+                .map(({ player }) => player),
+        [data]
+    );
+
     return (
         <div className={css.container}>
             <div className={css.chart} style={{ "--rows": data.length, "--columns": columns } as ChartCSS}>
@@ -202,6 +211,7 @@ export const Chart: FC<ChartProps> = ({ data }) => {
                 ))}
                 {data.map(({ player, values }, index) => {
                     const colour = colours.get(player.id)!;
+                    const endPlayer = finalRoster[index];
                     return (
                         <Fragment key={player.id}>
                             <Name player={player} row={index + 2} colour={colour} />
@@ -217,6 +227,9 @@ export const Chart: FC<ChartProps> = ({ data }) => {
                                     }}
                                 />
                             ))}
+                            {endPlayer && (
+                                <Name player={endPlayer} row={index + 2} colour={colours.get(endPlayer.id)!} />
+                            )}
                         </Fragment>
                     );
                 })}
