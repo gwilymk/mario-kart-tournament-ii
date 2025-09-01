@@ -36,11 +36,15 @@ export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement
                     <IconButton type="button" onClick={() => movePlayer(player.id, "down")} className={css.icon}>
                         <ArrowDownwardIcon />
                     </IconButton>
-                    <IconButton type="button" onClick={() => {
-                        if (confirm(`Are you sure you want to remove ${player.name} from the tournament?`)) {
-                            removePlayer(player.id);
-                        }
-                    }} className={css.icon}>
+                    <IconButton
+                        type="button"
+                        onClick={() => {
+                            if (confirm(`Are you sure you want to remove ${player.name} from the tournament?`)) {
+                                removePlayer(player.id);
+                            }
+                        }}
+                        className={css.icon}
+                    >
                         <Delete />
                     </IconButton>
                 </>
