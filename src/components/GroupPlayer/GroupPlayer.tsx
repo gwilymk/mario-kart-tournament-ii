@@ -36,7 +36,7 @@ export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement
                     <IconButton type="button" onClick={() => movePlayer(player.id, "down")} className={css.icon}>
                         <ArrowDownwardIcon />
                     </IconButton>
-                    <IconButton
+                    {/* <IconButton
                         type="button"
                         onClick={() => {
                             if (confirm(`Are you sure you want to remove ${player.name} from the tournament?`)) {
@@ -46,7 +46,7 @@ export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement
                         className={css.icon}
                     >
                         <Delete />
-                    </IconButton>
+                    </IconButton> */}
                 </>
             )}
         </li>
