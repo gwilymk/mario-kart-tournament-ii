@@ -10,6 +10,13 @@ export default function LoadingIndicator({ children }: PropsWithChildren) {
     return hasLoaded ? (
         children
     ) : (
-        <Image src={getImageUrl("/images/coin.gif")} width={50} height={50} alt="Loading" priority={true} unoptimized={true} />
+        <Image
+            src={getImageUrl("/images/coin.gif")}
+            width={50}
+            height={50}
+            alt="Loading"
+            priority={true}
+            unoptimized={true}
+        />
     );
 }
