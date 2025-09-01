@@ -40,7 +40,7 @@ export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement
                         if (confirm(`Are you sure you want to remove ${player.name} from the tournament?`)) {
                             removePlayer(player.id);
                         }
-                    } className={css.icon}>
+                    }} className={css.icon}>
                         <Delete />
                     </IconButton>
                 </>
