@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import Delete from "@mui/icons-material/Delete";
+// import Delete from "@mui/icons-material/Delete";
 import classNames from "classnames";
 
 import { IconButton } from "@/components/Button";
@@ -18,7 +18,7 @@ interface GroupPlayerProps {
 }
 
 export const GroupPlayer: FC<GroupPlayerProps> = ({ player, index, showPlacement, showControls }) => {
-    const { removePlayer, movePlayer } = useTournament();
+    const { /* removePlayer, */ movePlayer } = useTournament();
 
     const backgroundImage =
         index !== undefined && showPlacement
